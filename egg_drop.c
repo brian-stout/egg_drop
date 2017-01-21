@@ -60,8 +60,16 @@ void binary_egg_drop(size_t floorAmount)
         }
 
     }
-    printf("The maximum safe floor is %zd, found after %zd drops\n", lastKnownSafe, dropNumber);
-
+    if(lastKnownDangerous - 1 == 0)
+    {
+        printf("There is no safe floor to drop the eggs from.\n");
+        printf("Eggs should be eaten, not dropped.\n");
+    }
+    else
+    {
+        printf("The maximum safe floor is %zd, found after %zd drops\n",
+                lastKnownDangerous - 1, dropNumber);
+    }
     testEgg = NULL;
 }
 
@@ -133,9 +141,16 @@ void drop_eggs(size_t eggAmount, size_t floorAmount)
             testFloor+= stepAmount;
         }   
     }
-
-    printf("The maximum safe floor is %zd, found after %zd drops\n", lastKnownDangerous - 1, dropNumber);
-
+    if(lastKnownDangerous - 1 == 0)
+    {
+        printf("There is no safe floor to drop the eggs from.\n");
+        printf("Eggs should be eaten, not dropped.\n");
+    }
+    else
+    {
+        printf("The maximum safe floor is %zd, found after %zd drops\n",
+                lastKnownDangerous - 1, dropNumber);
+    }
     testEgg = NULL;
 }
 
@@ -195,10 +210,15 @@ int main( int argc, char *argv[] )
     }
 
     //Checks to see if the inputed number exceeds the limit for strtol
-    //  When strtol receives an excessivle long number it returns LONG_MAX
-    if(floorAmount == LONG_MAX || eggAmount == LONG_MAX)
+    if(floorAmount == LONG_MAX || floorAmount == LONG_MIN ||
+       eggAmount == LONG_MAX || eggAmount == LONG_MIN)
     {
-        perror("Use a smaller number!\n");
+        perror("Invalid number");
+        return EX_DATAERR;
+    }
+    if(eggAmount <= 0 || floorAmount <= 0)
+    {
+        printf("Input positive numbers only!\n");
         return EX_DATAERR;
     }
 
