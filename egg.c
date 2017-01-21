@@ -8,7 +8,7 @@ struct _egg {
 
 egg *lay_egg(void)
 {
-    egg *e = malloc(sizeof*e));
+    egg *e = malloc(sizeof(*e));
     if(e) {
         e->id = SECRET_FLOOR_LIMIT;
     }

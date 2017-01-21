@@ -6,14 +6,14 @@ CFLAGS+=-std=c11
 
 LDLIBS+=-lm
 
-BIN=driver
-OBJS=driver.o polynomial.o
+BIN=egg_drop
+OBJS=egg_drop.o egg.o search.o
 
 .PHONY: debug profile clean run val
 
 all: $(BIN)
 
-driver: driver.o polynomial.o
+egg_drop: egg_drop.o egg.o search.o
 
 debug: CFLAGS+=-g
 debug: $(BIN)
